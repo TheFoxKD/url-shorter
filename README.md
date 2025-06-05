@@ -2,6 +2,14 @@
 
 Сервис для сокращения URL-адресов с REST API и веб-интерфейсом.
 
+# Demo
+
+
+
+https://github.com/user-attachments/assets/3e2bd6bf-144a-4753-b16d-4feb57b55c84
+
+
+
 ## Технологии
 
 - **Backend**: NestJS + TypeScript
