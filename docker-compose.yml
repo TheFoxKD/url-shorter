@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database service
+  postgres:
+    image: postgres:17-alpine
+    container_name: url_shortener_db
+    environment:
+      POSTGRES_DB: url_shortener
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - url_shortener_network
+
+  # Backend service (NestJS)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: url_shortener_backend
+    environment:
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=url_shortener
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - url_shortener_network
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  # Frontend service (React)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: url_shortener_frontend
+    environment:
+      - REACT_APP_API_URL=http://localhost:3000
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
+    networks:
+      - url_shortener_network
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+# Named volumes for data persistence
+volumes:
+  postgres_data:
+
+# Custom network for service communication
+networks:
+  url_shortener_network:
+    driver: bridge
