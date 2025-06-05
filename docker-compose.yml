@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # PostgreSQL database service
   postgres:
@@ -48,14 +46,11 @@ services:
     environment:
       - REACT_APP_API_URL=http://localhost:3000
     ports:
-      - "3001:3000"
+      - "3001:80"
     depends_on:
       - backend
     networks:
       - url_shortener_network
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
 
 # Named volumes for data persistence
 volumes:
