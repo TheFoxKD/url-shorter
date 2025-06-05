@@ -53,11 +53,8 @@ function App() {
         <footer className="bg-white border-t border-gray-200 mt-16">
           <div className="container-custom py-8">
             <div className="text-center">
-              <p className="text-gray-600">
-                Built with ❤️ using React, TypeScript, and Tailwind CSS
-              </p>
               <p className="text-sm text-gray-500 mt-2">
-                © 2024 URL Shortener. All rights reserved.
+                © 2025 URL Shortener.
               </p>
             </div>
           </div>
